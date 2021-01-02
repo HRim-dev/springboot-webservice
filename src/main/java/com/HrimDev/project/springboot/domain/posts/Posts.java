@@ -11,6 +11,11 @@ import javax.persistence.*;
 @Entity     //JPA 어노테이션, Entity: 테이블과 링크될 클래스(이름_테이블명)
 public class Posts {            /*Posts 클래스: 실제 DB와 매칭될 클래스(Entity 클래스:setter 메소드를 만들지 않음)*/
 
+    public void update(String title, String content){
+        this.title=title;
+        this.content=content;
+    }
+
     @Id//해당 테이블의 PK 필드
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 생성규칙
     private long id;

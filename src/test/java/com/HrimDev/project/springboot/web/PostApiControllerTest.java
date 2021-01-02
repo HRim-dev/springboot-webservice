@@ -3,6 +3,7 @@ package com.HrimDev.project.springboot.web;
 import com.HrimDev.project.springboot.domain.posts.Posts;
 import com.HrimDev.project.springboot.domain.posts.PostsRepository;
 import com.HrimDev.project.springboot.web.dto.PostsSaveRequestDto;
+import com.HrimDev.project.springboot.web.dto.PostsUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -58,5 +61,33 @@ public class PostApiControllerTest {
         List<Posts> all=postsRepository.findAll();
         assertThat(all.get(0).getTitle(),is(title));
         assertThat(all.get(0).getContent(),is(content));
+    }
+
+    @Test
+    public void Posts_수정된다() throws Exception{
+        //given
+        Posts savePosts= postsRepository.save(Posts.builder().title("title").content("content").author("author").build());
+
+        Long updateid= savePosts.getId();
+        String expectedTitle="title2";
+        String expectedContent="content2";
+
+        PostsUpdateRequestDto requestDto=PostsUpdateRequestDto.builder().title(expectedTitle).content(expectedContent).build();
+
+        String url="http://localhost:"+port+"/api/v1/posts/"+updateid;
+
+        HttpEntity<PostsUpdateRequestDto> requestEntity=new HttpEntity<>(requestDto);
+
+        //when
+        ResponseEntity<Long> responseEntity=restTemplate.exchange(url, HttpMethod.PUT,requestEntity, Long.class);
+
+        //then
+        assertThat(responseEntity.getStatusCode(),is(HttpStatus.OK));
+        assertThat(responseEntity.getBody(),greaterThan(0L));
+
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTitle(),is(expectedTitle));
+        assertThat(all.get(0).getContent(),is(expectedContent));
+
     }
 }
