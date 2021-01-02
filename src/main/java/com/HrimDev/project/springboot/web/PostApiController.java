@@ -1,7 +1,6 @@
 package com.HrimDev.project.springboot.web;
 
-import com.HrimDev.project.springboot.domain.posts.PostsRepository;
-import com.HrimDev.project.springboot.service.posts.PostsService;
+import com.HrimDev.project.springboot.service.PostsService;
 import com.HrimDev.project.springboot.web.dto.PostsResponseDto;
 import com.HrimDev.project.springboot.web.dto.PostsSaveRequestDto;
 import com.HrimDev.project.springboot.web.dto.PostsUpdateRequestDto;
