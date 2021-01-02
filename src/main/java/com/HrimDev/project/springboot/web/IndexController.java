@@ -10,4 +10,9 @@ public class IndexController {
     public String index(){
         return "index"; // index.mustache로 전환(View Resolver(:URL 요청결과를 전달할 타입과 값을 지정하는 관리자)가 처리)
     }
+
+    @GetMapping("/posts/save")
+    public String postsSave(){
+        return "posts-save";
+    }
 }
