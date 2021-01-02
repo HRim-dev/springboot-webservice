@@ -1,5 +1,6 @@
 package com.HrimDev.project.springboot.domain.posts;
 
+import com.HrimDev.project.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter           //lombok, Getter: 클래스 내 모든 필드의 Getter 메소드 자동생성
 @NoArgsConstructor//lombok, NoArgsConstructor:기본 생성자 자동 추가
 @Entity     //JPA 어노테이션, Entity: 테이블과 링크될 클래스(이름_테이블명)
-public class Posts {            /*Posts 클래스: 실제 DB와 매칭될 클래스(Entity 클래스:setter 메소드를 만들지 않음)*/
+public class Posts extends BaseTimeEntity {            /*Posts 클래스: 실제 DB와 매칭될 클래스(Entity 클래스:setter 메소드를 만들지 않음)*/
 
     public void update(String title, String content){
         this.title=title;
