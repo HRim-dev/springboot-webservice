@@ -49,4 +49,13 @@ public class PostsService {
                               .collect(Collectors.toList());
 
     }
+
+    //게시글 삭제
+    @Transactional
+    public void delete(long id){
+        Posts posts=postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
+
+        postsRepository.delete(posts);
+
+    }
 }
