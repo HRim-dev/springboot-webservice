@@ -17,11 +17,11 @@ import static org.junit.Assert.*;
 public class PostRepositoryTest {
 
     @Autowired
-    PostRepository postRepository;
+    PostsRepository postsRepository;
 
     @After
     public void cleanup(){
-        postRepository.deleteAll();
+        postsRepository.deleteAll();
     }
 
     @Test
@@ -30,10 +30,10 @@ public class PostRepositoryTest {
         String title="테스트 게시글";
         String content="테스트 본문";
 
-        postRepository.save(Posts.builder().title(title).content(content).author("ggg@gmail.com").build());
+        postsRepository.save(Posts.builder().title(title).content(content).author("ggg@gmail.com").build());
 
         //when
-        List<Posts> postsList=postRepository.findAll();
+        List<Posts> postsList= postsRepository.findAll();
 
         //then
         Posts posts = postsList.get(0);
