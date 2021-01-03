@@ -42,4 +42,7 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile("org.springframework.security:spring-security-test")
 
+    // 세션저장소로 DB 사용
+    compile('org.springframework.session:spring-session-jdbc')
+
 }
