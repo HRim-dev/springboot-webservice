@@ -1,5 +1,6 @@
 package com.HrimDev.project.springboot.web;
 
+import com.HrimDev.project.springboot.config.auth.LoginUser;
 import com.HrimDev.project.springboot.config.auth.dto.SessionUser;
 import com.HrimDev.project.springboot.service.PostsService;
 import com.HrimDev.project.springboot.web.dto.PostsResponseDto;
@@ -16,16 +17,17 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
 
     private final PostsService postsService;
-    //로그인
-    private final HttpSession httpSession;
+
+    //로그인(어노테이션으로 변경)
+    //private final HttpSession httpSession;
 
     //게시글 전체 조회
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model,@LoginUser SessionUser user){       //개선: @LoginUser만 사용하면 어느 컨트롤러든지 세션정보 가져올 수 있음
         model.addAttribute("posts",postsService.findAllDesc());
 
         //로그인
-        SessionUser user=(SessionUser) httpSession.getAttribute("user");
+        //SessionUser user=(SessionUser) httpSession.getAttribute("user");
 
         if(user!=null){
             model.addAttribute("userName",user.getName());
